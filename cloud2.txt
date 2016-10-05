@@ -1,0 +1,6 @@
++ On AWS please take the CSV file and place it on AWS, either in EC2 or S3 (or similar).
+    + Using a clustering method, find: 
+        (a) 3 clusters on columns B and D
+          then
+        (b) 5 clusters on columns A and B
+    + Show, in textual form, time to run, centroids for the clusters, and number of points in each cluster. 
