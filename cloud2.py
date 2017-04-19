@@ -25,8 +25,7 @@ def upload():
         print(col2)
         print(nclusters)
 
-        #file11 = '"' +str(file1) +'"'
-
+        
         #processing starts
 
         eq = pd.read_csv(f1.filename)
@@ -90,11 +89,7 @@ def upload():
                         cdict[jstr] = lll
                     break
 
-
-
-
-
-        #print('cdict',cdict)
+        
 
         ld = len(cdict)
         print('ld',ld)
