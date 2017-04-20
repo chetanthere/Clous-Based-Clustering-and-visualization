@@ -149,6 +149,6 @@ def upload():
         return render_template("upload.html",results=results)
 
 if __name__== "__main__":
-        app.run(host="ec2-54-186-71-57.us-west-2.compute.amazonaws.com")
+        app.run(host="ec2-aws")
 
 
