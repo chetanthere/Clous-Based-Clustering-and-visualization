@@ -20,23 +20,11 @@ def upload():
         col1=request.form['col1']
         col2=request.form['col2']
         nclusters = int(request.form['nclusters'])
-        print(f1)
-        print(col1)
-        print(col2)
-        print(nclusters)
-
-        
+                
         #processing starts
-
         eq = pd.read_csv(f1.filename)
-        tf2 = DataFrame(eq,columns=([col1,col2]))
-        print('q',len(tf2))
-	print(tf2 )
-
-        tf2 = tf2.dropna()
-        print('w',len(tf2))
-	print(tf2 )
-
+        tf2 = DataFrame(eq,columns=([col1,col2]))        
+        tf2 = tf2.dropna()        
         time1 = datetime.datetime.now()
         kmeans_model = KMeans(n_clusters=nclusters, random_state=1).fit(tf2)
         labels = kmeans_model.labels_
@@ -44,12 +32,7 @@ def upload():
         inertia = kmeans_model.inertia_
         print('labels' ,labels)
         print('clustercenters' ,clustercenters)
-        print('inertia',inertia)
-        print(len(labels))
-
-        print('clustercenters0',clustercenters[0])
-        #print('clustercenters1', clustercenters[1])
-
+        print('inertia',inertia)       
         ind = 0
         for i in range(len(labels)):
             l = []
@@ -83,35 +66,23 @@ def upload():
                         a = (cdict[jstr])
                         a.append(l)
                         cdict[jstr] = a
-
                     except KeyError:
                         lll.append(l)
                         cdict[jstr] = lll
-                    break
+                    break        
 
-        
-
-        ld = len(cdict)
-        print('ld',ld)
-
+        ld = len(cdict)      
         # to calculate no of data points
         cp = []
-
         for k,v in cdict.items():
-            cc = cdict[k]
-            print(len(cc))
-            cp.append(len(cc))
-
-        print(cp)
+            cc = cdict[k]          
+            cp.append(len(cc))      
 
         time2 = datetime.datetime.now()
-
         timet = time2 - time1
         cps = []
         cps = cp.sort()
-        print('Sorted file=',cps)
-        print('Sorted file=', cp)
-
+        
         #creating bar chart
         bar_chart = pygal.Bar()  # Then create a bar graph object
         bar_chart.add('no of cluster  points', cp)
@@ -125,7 +96,6 @@ def upload():
             bar_chart.add(strk, cp[k])
 
         bar_chart.render_to_file('nxy12a_barchart.svg')
-
 
         #creating chart
         xy_chart = pygal.XY(stroke=False)
@@ -147,6 +117,7 @@ def upload():
 
         results = "\n no of clusters= " +str(ld)  +"\n centroids are= " +str(clustercenters)  + "\n no of cluster points = " +str(cp) +" time need to run = " +str(timet)
         return render_template("upload.html",results=results)
+
 
 if __name__== "__main__":
         app.run(host="ec2-aws")
